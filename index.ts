@@ -27,6 +27,12 @@ const typeDefs = gql`
     user(id: ID!): User
     posts: [Post]
   }
+
+  type Mutation {
+    createUser(name: String!, email: String!): User
+    updateUser(id: Int!, name: String!): User
+    deleteUser(id: Int!): User
+  }
 `;
 
 const resolvers = {
@@ -60,6 +66,31 @@ const resolvers = {
         'https://jsonplaceholder.typicode.com/posts'
       );
       return res.data;
+    },
+  },
+  Mutation: {
+    createUser: (_, args) => {
+      return prisma.user.create({
+        data: {
+          name: args.name,
+          email: args.email,
+        },
+      });
+    },
+    updateUser: (_, args) => {
+      return prisma.user.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          name: args.name,
+        },
+      });
+    },
+    deleteUser: (_, args) => {
+      return prisma.user.delete({
+        where: { id: args.id },
+      });
     },
   },
 };
