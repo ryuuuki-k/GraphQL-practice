@@ -1,7 +1,10 @@
 import { ApolloServer, gql } from 'apollo-server';
+import { PrismaClient } from '@prisma/client';
 import axios, { Axios, AxiosResponse } from 'axios';
 
 import { User, Post } from './type';
+
+const prisma = new PrismaClient();
 
 const typeDefs = gql`
   type User {
@@ -30,10 +33,11 @@ const resolvers = {
   Query: {
     hello: (parent, args) => `Hello ${args.name}`,
     users: async () => {
-      const users: AxiosResponse<User[]> = await axios.get(
-        'https://jsonplaceholder.typicode.com/users'
-      );
-      return users.data;
+      // const users: AxiosResponse<User[]> = await axios.get(
+      //   'https://jsonplaceholder.typicode.com/users'
+      // );
+      // return users.data;
+      return prisma.user.findMany();
     },
     user: async (parent, args) => {
       const user: AxiosResponse<User> = await axios.get(
