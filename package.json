@@ -16,5 +16,8 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn ./index.ts"
+  },
+  "devDependencies": {
+    "prisma": "^3.12.0"
   }
 }
