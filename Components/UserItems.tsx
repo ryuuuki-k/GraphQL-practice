@@ -10,7 +10,6 @@ interface Props {
 }
 
 const UserItems: VFC<Props> = ({ user, delete_users_by_pk, setEditedUser }) => {
-  console.log('rendring in UserItems Components');
   return (
     <div>
       <span className=" m-1">{user.name}</span>
@@ -37,4 +36,4 @@ const UserItems: VFC<Props> = ({ user, delete_users_by_pk, setEditedUser }) => {
   );
 };
 
-export default UserItems;
+export default memo(UserItems);
